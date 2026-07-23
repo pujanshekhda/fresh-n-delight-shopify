@@ -96,8 +96,6 @@ fresh-n-delight-shopify/
 ├── sections/
 ├── snippets/
 ├── templates/
-├── screenshots/
-│   └── homepage.png
 ├── LICENSE
 ├── .gitignore
 └── README.md
