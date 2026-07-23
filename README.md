@@ -83,14 +83,6 @@ Built using Shopify's modern theme architecture, the store provides customers wi
 
 ---
 
-# 📸 Website Preview
-
-## 🖥 Homepage
-
-![Homepage](./screenshots/homepage.png)
-
----
-
 # 📂 Project Structure
 
 ```text
