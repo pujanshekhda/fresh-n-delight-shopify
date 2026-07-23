@@ -1,0 +1,134 @@
+<div class="saree-care" style="background: {{ section.settings.bg_color }};">
+  <div class="page-width">
+
+    <h2 class="saree-care-title" style="color: {{ section.settings.heading_color }};">
+      {{ section.settings.heading }}
+    </h2>
+
+    <div class="saree-care-grid">
+
+      {% for block in section.blocks %}
+        
+        <div class="care-item">
+
+          {% if block.settings.icon %}
+            <img 
+              src="{{ block.settings.icon | image_url: width: 120 }}" 
+              alt="{{ block.settings.title }}"
+              class="care-icon"
+            >
+          {% endif %}
+
+          <p class="care-text" style="color: {{ section.settings.text_color }};">
+            {{ block.settings.title }}
+          </p>
+
+        </div>
+
+      {% endfor %}
+
+    </div>
+
+  </div>
+</div>
+
+<style>
+
+.saree-care{
+padding: 32px 0;
+text-align:center;
+}
+
+.saree-care-title{
+font-size:32px;
+font-style:italic;
+margin-bottom:40px;
+}
+
+.saree-care-grid {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    justify-content: space-around;
+}
+
+.care-icon {
+    width: 130px;
+    margin-bottom: 10px;
+    opacity: 0.8;
+}
+
+.care-text{
+font-size:16px;
+}
+
+
+@media screen and (max-width: 450px) {
+   .saree-care-grid {
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+}
+.care-item {
+    width: 100%;
+    max-width: 130px;
+}
+
+  }
+
+ 
+
+
+</style>
+
+{% schema %}
+{
+"name": "Saree Care Tips",
+"settings": [
+{
+"type": "text",
+"id": "heading",
+"label": "Section Heading"
+},
+{
+"type": "color",
+"id": "bg_color",
+"label": "Background Color",
+"default": "#ffffff"
+},
+{
+"type": "color",
+"id": "heading_color",
+"label": "Heading Color"
+},
+{
+"type": "color",
+"id": "text_color",
+"label": "Text Color"
+}
+],
+"blocks": [
+{
+"type": "care_tip",
+"name": "Care Tip",
+"settings": [
+{
+"type": "image_picker",
+"id": "icon",
+"label": "Icon"
+},
+{
+"type": "text",
+"id": "title",
+"label": "Title"
+}
+]
+}
+],
+"presets": [
+{
+"name": "Saree Care Tips"
+}
+]
+}
+{% endschema %}

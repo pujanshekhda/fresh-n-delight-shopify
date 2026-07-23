@@ -1,0 +1,559 @@
+<section
+  class="why-choose why-choose-{{ section.id }}"
+  style="
+    --section-bg: {{ section.settings.background_color }};
+    --heading-color: {{ section.settings.heading_color }};
+    --text-color: {{ section.settings.text_color }};
+  "
+>
+  <div class="why-container">
+
+    <!-- HEADING -->
+    <div class="why-heading">
+
+      {% if section.settings.small_title != blank %}
+        <span class="small-title">
+          {{ section.settings.small_title }}
+        </span>
+      {% endif %}
+
+      {% if section.settings.heading != blank %}
+        <h2>{{ section.settings.heading }}</h2>
+      {% endif %}
+
+      <div class="heading-divider">
+        <span></span>
+        <span class="heart">♡</span>
+        <span></span>
+      </div>
+
+      {% if section.settings.description != blank %}
+        <div class="why-description">
+          {{ section.settings.description }}
+        </div>
+      {% endif %}
+
+    </div>
+
+
+    <!-- CARDS -->
+    <div class="why-grid">
+
+      {% for block in section.blocks %}
+
+        <div
+          class="why-card"
+          {{ block.shopify_attributes }}
+        >
+
+          <div
+            class="icon-circle"
+            style="background-color: {{ block.settings.icon_background }};"
+          >
+
+            {% if block.settings.icon != blank %}
+              {{
+                block.settings.icon
+                | image_url: width: 200
+                | image_tag:
+                  loading: 'lazy',
+                  class: 'why-icon',
+                  alt: block.settings.title
+              }}
+            {% endif %}
+
+          </div>
+
+
+          {% if block.settings.title != blank %}
+            <h3>{{ block.settings.title }}</h3>
+          {% endif %}
+
+
+          {% if block.settings.text != blank %}
+            <div class="card-description">
+              {{ block.settings.text }}
+            </div>
+          {% endif %}
+
+        </div>
+
+      {% endfor %}
+
+    </div>
+
+  </div>
+</section>
+
+
+<style>
+
+.why-choose-{{ section.id }} {
+  width: 100%;
+  padding: 40px 30px 50px;
+  background-color: var(--section-bg);
+  {% if section.settings.desktop_background != blank %}
+    background-image:
+      url('{{ section.settings.desktop_background | image_url: width: 2400 }}');
+  {% endif %}
+  background-size: cover;
+  background-position: top center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+
+
+/* =========================
+   CONTAINER
+========================= */
+
+.why-choose-{{ section.id }} .why-container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+
+/* =========================
+   HEADING
+========================= */
+
+.why-choose-{{ section.id }} .why-heading {
+  max-width: 900px;
+  margin: 0 auto 55px;
+  text-align: center;
+}
+
+
+.why-choose-{{ section.id }} .small-title {
+  display: block;
+  margin-bottom: 10px;
+  color: var(--heading-color);
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+
+.why-choose-{{ section.id }} .why-heading h2 {
+  margin: 0;
+  color: var(--heading-color);
+  font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(43px, 4vw, 95px);
+  line-height: 1;
+  font-weight: 700;
+}
+
+
+/* =========================
+   DIVIDER
+========================= */
+
+.why-choose-{{ section.id }} .heading-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 12px;
+
+  margin: 20px 0;
+}
+
+
+.why-choose-{{ section.id }} .heading-divider span:not(.heart) {
+  width: 110px;
+  height: 2px;
+
+  background: #cbd5ad;
+}
+
+
+.why-choose-{{ section.id }} .heading-divider .heart {
+  color: #93a76a;
+
+  font-size: 35px;
+  line-height: 1;
+}
+
+
+/* =========================
+   DESCRIPTION
+========================= */
+
+.why-choose-{{ section.id }} .why-description {
+  color: var(--text-color);
+
+  font-size: 20px;
+  line-height: 1.5;
+}
+
+
+.why-choose-{{ section.id }} .why-description p {
+  margin: 0;
+}
+
+
+/* =========================
+   GRID
+========================= */
+
+.why-choose-{{ section.id }} .why-grid {
+  display: grid;
+
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+
+  gap: 18px;
+}
+
+
+/* =========================
+   CARD
+========================= */
+
+.why-choose-{{ section.id }} .why-card {
+  position: relative;
+
+  min-height: 400px;
+
+  padding: 30px 34px 45px;
+
+  text-align: center;
+
+  background: rgba(255, 255, 255, 0.78);
+
+  border: 1px solid rgba(220, 220, 210, 0.8);
+
+  border-radius: 25px;
+
+  box-shadow:
+    0 10px 40px rgba(30, 50, 20, 0.05);
+
+  overflow: hidden;
+
+  transition:
+    transform 0.4s ease,
+    box-shadow 0.4s ease;
+}
+
+
+.why-choose-{{ section.id }} .why-card:hover {
+  transform: translateY(-8px);
+
+  box-shadow:
+    0 20px 50px rgba(30, 50, 20, 0.12);
+}
+
+
+/* =========================
+   ICON CIRCLE
+========================= */
+
+.why-choose-{{ section.id }} .icon-circle {
+  width: 155px;
+  height: 155px;
+
+  margin: 0 auto 18px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+}
+
+
+.why-choose-{{ section.id }} .why-icon {
+  width: 75px;
+  height: 75px;
+
+  object-fit: contain;
+}
+
+
+/* =========================
+   CARD TEXT
+========================= */
+
+.why-choose-{{ section.id }} .why-card h3 {
+  margin: 0 0 15px;
+
+  color: var(--heading-color);
+
+  font-family: Georgia, "Times New Roman", serif;
+
+  font-size: 28px;
+  line-height: 1.05;
+}
+
+
+.why-choose-{{ section.id }} .card-description {
+  max-width: 280px;
+
+  margin: 0 auto;
+
+  color: var(--text-color);
+
+  font-size: 17px;
+  line-height: 1.55;
+}
+
+
+.why-choose-{{ section.id }} .card-description p {
+  margin: 0;
+}
+
+
+/* =========================
+   TABLET
+========================= */
+
+@media screen and (max-width: 1100px) {
+
+  .why-choose-{{ section.id }} .why-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media screen and (max-width: 600px) {
+
+  .why-choose-{{ section.id }} {
+    padding: 45px 15px 60px;
+
+    {% if section.settings.mobile_background != blank %}
+
+      background-image:
+        url('{{ section.settings.mobile_background | image_url: width: 1200 }}');
+
+    {% elsif section.settings.desktop_background != blank %}
+
+      background-image:
+        url('{{ section.settings.desktop_background | image_url: width: 1200 }}');
+
+    {% endif %}
+
+    background-size: 100% auto;
+    background-position: top center;
+    background-repeat: no-repeat;
+  }
+
+
+  .why-choose-{{ section.id }} .why-heading {
+    margin-bottom: 35px;
+  }
+
+
+  .why-choose-{{ section.id }} .small-title {
+    font-size: 16px;
+    letter-spacing: 1px;
+  }
+
+
+  .why-choose-{{ section.id }} .why-heading h2 {
+    font-size: 48px;
+  }
+
+
+  .why-choose-{{ section.id }} .why-description {
+    font-size: 16px;
+  }
+
+
+  .why-choose-{{ section.id }} .heading-divider span:not(.heart) {
+    width: 65px;
+  }
+
+
+  .why-choose-{{ section.id }} .why-grid {
+    grid-template-columns: 1fr;
+
+    gap: 20px;
+  }
+
+
+  .why-choose-{{ section.id }} .why-card {
+    min-height: 400px;
+
+    padding: 28px 25px 50px;
+  }
+
+
+  .why-choose-{{ section.id }} .icon-circle {
+    width: 130px;
+    height: 130px;
+  }
+
+
+  .why-choose-{{ section.id }} .why-icon {
+    width: 65px;
+    height: 65px;
+  }
+
+}
+
+</style>
+
+
+{% schema %}
+{
+  "name": "Why Choose",
+  "tag": "section",
+  "class": "why-choose-section",
+
+  "settings": [
+
+    {
+      "type": "image_picker",
+      "id": "desktop_background",
+      "label": "Desktop background image"
+    },
+
+    {
+      "type": "image_picker",
+      "id": "mobile_background",
+      "label": "Mobile background image"
+    },
+
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#fffdf9"
+    },
+
+    {
+      "type": "text",
+      "id": "small_title",
+      "label": "Small title",
+      "default": "🍃 WHY CHOOSE 🍃"
+    },
+
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Main heading",
+      "default": "Fresh N Delight?"
+    },
+
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>We bring you the goodness of real fruits, transformed with care to deliver a delightful snacking experience anytime, anywhere.</p>"
+    },
+
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#123d18"
+    },
+
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#4d4d4d"
+    }
+
+  ],
+
+
+  "blocks": [
+
+    {
+      "type": "feature",
+      "name": "Feature card",
+
+      "settings": [
+
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon"
+        },
+
+        {
+          "type": "color",
+          "id": "icon_background",
+          "label": "Icon background color",
+          "default": "#e8f1d3"
+        },
+
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Real Fruit"
+        },
+
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Description",
+          "default": "<p>We use carefully selected, high-quality fruits with no artificial flavors or added colors.</p>"
+        }
+
+      ]
+
+    }
+
+  ],
+
+
+  "presets": [
+
+    {
+      "name": "Why Choose Fresh N Delight",
+
+      "blocks": [
+
+        {
+          "type": "feature",
+          "settings": {
+            "title": "Real Fruit",
+            "icon_background": "#e8f1d3",
+            "text": "<p>We use carefully selected, high-quality fruits with no artificial flavors or added colors.</p>"
+          }
+        },
+
+        {
+          "type": "feature",
+          "settings": {
+            "title": "Crispy & Convenient",
+            "icon_background": "#fff0bd",
+            "text": "<p>Light, crunchy and delicious snacks that are easy to carry and perfect for on-the-go lifestyles.</p>"
+          }
+        },
+
+        {
+          "type": "feature",
+          "settings": {
+            "title": "Thoughtfully Made",
+            "icon_background": "#ffd8d4",
+            "text": "<p>Crafted with care using modern technology to retain natural taste, color and nutrients.</p>"
+          }
+        },
+
+        {
+          "type": "feature",
+          "settings": {
+            "title": "Ready Anytime",
+            "icon_background": "#e7def1",
+            "text": "<p>Enjoy the goodness of fruits anytime you crave — no prep, no mess, just pure delight.</p>"
+          }
+        }
+
+      ]
+
+    }
+
+  ]
+
+}
+{% endschema %}

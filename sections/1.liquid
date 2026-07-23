@@ -1,0 +1,125 @@
+{% if product %}
+<div class="color-{{ section.settings.color_scheme }} gradient">
+  <div class="page-width section-{{ section.id }}-padding">
+
+    <h2 class="title center">{{ section.settings.heading }}</h2>
+
+    <div id="recently-viewed-products"
+      class="grid product-grid grid--{{ section.settings.columns_mobile }}-col-tablet grid--{{ section.settings.columns_desktop }}-col-desktop">
+    </div>
+
+  </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", async function () {
+
+  let currentProduct = "{{ product.handle }}";
+  let maxProducts = {{ section.settings.products_to_show }};
+  let viewedProducts = JSON.parse(localStorage.getItem("recentlyViewed")) || [];
+
+  // Remove duplicate kare and current product ne show kare
+  viewedProducts = viewedProducts.filter(item => item !== currentProduct);
+
+  // Add current first product ne show kare jethi line wise ave
+  viewedProducts.unshift(currentProduct);
+  viewedProducts = viewedProducts.slice(0, maxProducts + 5);
+
+  localStorage.setItem("recentlyViewed", JSON.stringify(viewedProducts));
+
+  let container = document.getElementById("recently-viewed-products");
+  container.innerHTML = "";
+
+  let shown = 0;
+
+  for (let i = 0; i < viewedProducts.length; i++) {
+
+    let handle = viewedProducts[i];
+
+    if (handle === currentProduct) continue;
+
+    // Skip giftcart ne add nay karva ape 
+    if (handle.toLowerCase().includes('gift')) continue;
+
+    if (shown >= maxProducts) break;
+
+    try {
+      let response = await fetch(`/products/${handle}?view=recent-card`);
+      let html = await response.text();
+
+      container.innerHTML += html;
+
+      shown++;
+
+    } catch (error) {
+      console.log("Error:", handle);
+    }
+  }
+
+});
+</script>
+
+<style>
+z
+.title, .title-wrapper-with-link {
+    margin-bottom: 30px;
+    margin-top: 0;
+    font-size: 39px;
+    font-style: italic;
+}
+</style>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Recently Viewed Products",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Recently Viewed Products"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "label": "Products to show",
+      "min": 2,
+      "max": 8,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "label": "Desktop columns",
+      "min": 2,
+      "max": 6,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "columns_mobile",
+      "label": "Mobile columns",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "default": 2
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "background-1"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Recently Viewed Products"
+    }
+  ]
+}
+{% endschema %}
