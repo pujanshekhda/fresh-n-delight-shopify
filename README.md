@@ -8,10 +8,6 @@ Modern • Responsive • Fast • User-Friendly • Shopify
 
 <br>
 
-![Website Preview](./screenshots/homepage.png)
-
-<br>
-
 [🌐 Live Demo](https://fresh-n-delight.myshopify.com/) • **Password:** `1234`
 
 </div>
